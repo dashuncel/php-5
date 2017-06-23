@@ -1,0 +1,28 @@
+table {
+  box-sizing: border-box;
+  margin: 4em auto;
+  border-collapse: collapse;
+  min-width: 23em;
+  width: 70%;
+  max-width: 56em;
+  border-radius: .5em;
+  box-shadow: 0 0 .5em #000;
+  border: 1px solid #69c;
+}
+
+thead {
+  background: linear-gradient(#806062, #20262b);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+th, td {
+	border: 2px solid #69c;
+}
+
+.maincol {
+  vertical-align: center;
+  text-align: center;
+}
