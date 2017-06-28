@@ -8,36 +8,52 @@ if (!$data) {
 $jsonData = json_decode($data, true); 
 
 function setArray($array) {
+  // header: 
+  echo "<thead><tr>";
+  foreach ($array[0] as $key => $val) {
+    echo "<th>".$key."</th>";
+  }
+  echo "</tr></thead>";
 
-    foreach ($array as $key => $val) {
-      $rows=count($val) + 1;
-      echo "<tr><td rowspan={$rows} class='maincol'>{$key}</td>";
-      foreach ($val as $sub_key => $sub_val) {
-        echo "<tr><td>$sub_key</td>";
-      	if (count($sub_val) > 1) {
-          echo "<td>".implode($sub_val,", ")."</td></tr>"; 
-        } else {
-          echo "<td>$sub_val</td></tr>"; 
-        }
-      }
-      echo "</tr>";	
+  // data of json:
+  foreach ($array as $key => $val) {
+    echo "<tr>";
+    foreach($val as $sub_key => $sub_val) {
+      echo "<td>";
+      parseVal("", $sub_val);
+      echo "</td>";
     }
+    echo "</tr>";
+  }
 }
 
+// 
+function parseVal($title, $val) {
+  if (is_array($val)) { 
+    foreach ($val as $key => $value) {
+      parseVal($key, $value);  
+    }
+  } else { 
+    if ($title) {
+      echo "$title: ";
+    }
+    echo "$val<br/>"; 
+  }
+}
 ?> 
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>ДЗ-5</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="./main.css">
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
+  <table>
   <?php
-    echo "<table>";
-    echo "<thead><tr><td>Номер</td><td>Ключ</td><td>Значение</td></tr></thead>";
     setArray($jsonData);
-    echo "</table>";
   ?>
+  </table>
 </body>
 </html>
