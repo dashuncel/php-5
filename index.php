@@ -1,6 +1,7 @@
 <?php
 
-$filename="astrology.json";
+$filename= "my.json";
+
 if (!file_exists($filename)) {
   echo("Файл $filename не найден!" );
   return;
@@ -73,7 +74,15 @@ function parseVal($title, $val) {
 	<link rel="stylesheet" href="main.css">
 </head>
 <body>
+  <!--<form action="" method="POST" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Загрузчик файла json</legend>
+      <label>Файлы:<br/><input type="file" name="tests[]" multiple required></label><br/><br/>
+      <input type="submit" value="Загрузить json" name="btn"><br/>
+    </fieldset>
+  </form> -->
   <table>
+  <caption>Файл <?=$filename ?></caption>
   <?php
     setArray($jsonData);
   ?>
