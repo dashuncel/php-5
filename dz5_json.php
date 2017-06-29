@@ -1,4 +1,5 @@
 <?php
+
 $data = file_get_contents("my.json");
 if (!$data) {
   echo("Файл с данными не найден!");
@@ -8,19 +9,31 @@ if (!$data) {
 $jsonData = json_decode($data, true); 
 
 function setArray($array) {
-  // header: 
+  $listkeys=[]; // массив ключей
+  
+  // header: на случай если в первой строке присутствуют не все ключи перебираем все строки, делаем массив возможных ключей:
   echo "<thead><tr>";
-  foreach ($array[0] as $key => $val) {
-    echo "<th>".$key."</th>";
+  foreach ($array as $key => $val) {
+    foreach($val as $s_key => $s_val) {
+      $result=array_search($s_key, $listkeys);
+      if ( $result===false) { 
+        echo "<td>$s_key</td>";
+        $listkeys[]=$s_key; 
+      }
+    }
   }
   echo "</tr></thead>";
 
   // data of json:
-  foreach ($array as $key => $val) {
+  foreach ($array as $key => $val) { // для каждой строки
     echo "<tr>";
-    foreach($val as $sub_key => $sub_val) {
+    foreach($listkeys as $index) { // перебираем массив ключей
       echo "<td>";
-      parseVal("", $sub_val);
+      if (array_key_exists($index, $val)) { 
+        parseVal("", $val[$index]);
+      } else { 
+        parseVal("", "");
+      } 
       echo "</td>";
     }
     echo "</tr>";
